@@ -21,3 +21,7 @@
 ## Implementation
 
 `main.ts` is erasable-only TypeScript, Node 22, no dependencies, no network, fully deterministic: it writes the constant line to `/output/entry.txt`. Verified locally: exactly one line, 115 characters (gate: 1–200), identical output across repeated runs.
+
+## Revision (second commit, kit-check hardening)
+
+`main.ts` gained a small `assertLineValid()` helper, called before the write, that enforces the entry gate (1–200 chars, single line, non-blank) plus a short comment explaining the gate. The output line itself was not changed byte for byte: re-running `node main.ts` twice after the edit produced the identical file (same sha256 as before, 115 chars, 1 line), so the entry content is unchanged.
